@@ -35,7 +35,7 @@ func ShowWeather(city string) (model.WeatherData, error) {
 		return model.WeatherData{}, err
 	}
 	defer db.Close()
-	_, err = db.Exec("INSERT INTO weather(name) VALUES(?)", d.Name)
+	_, err = db.Exec("INSERT INTO weather(name, temperature, pressure, humidity) VALUES(?, ?, ?, ?)", d.Name, d.Main.Kelvin, d.Main.Pressure, d.Main.Humidity)
 	if err != nil {
 		log.Print(err)
 		return model.WeatherData{}, err
